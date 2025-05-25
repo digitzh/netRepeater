@@ -4,22 +4,23 @@ import java.net.UnknownHostException;
 
 import static java.lang.Thread.sleep;
 
-public class UDPGenerator implements Runnable{
-    UDPUtils.UDPSocket udp_s;
-    public UDPGenerator(String addr, int port) throws SocketException, UnknownHostException {
-        udp_s = new UDPUtils.UDPSocket(addr, port);
+public class UDPSender implements Runnable{
+    UDPUtils.UDPSocket udpSocket;
+    public UDPSender(String addr, int port) throws SocketException, UnknownHostException {
+        udpSocket = new UDPUtils.UDPSocket(addr, port);
     }
     @Override
     public void run() {
-        int cycle_times = 10, i = 0;
-        while (i<cycle_times){
+        int cycleTimes = 10, i = 0;
+        while (i<cycleTimes){
             try {
-                UDPUtils.send(udp_s, i + " " + System.currentTimeMillis());
+                UDPUtils.send(udpSocket, i + " " + System.currentTimeMillis());
                 i++;
                 sleep(1000);
             } catch (IOException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
+        UDPUtils.close(udpSocket.s);
     }
 }

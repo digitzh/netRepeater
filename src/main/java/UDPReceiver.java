@@ -1,16 +1,20 @@
 import java.io.IOException;
+import java.net.SocketException;
 
 import static java.lang.Thread.sleep;
 
-public class UDPGenerator implements Runnable{
-    UDPUtils.UDPSocket udp_s;
+public class UDPReceiver implements Runnable{
+    UDPUtils.UDPSocket udpSocket;
+    public UDPReceiver(int port) throws SocketException {
+        udpSocket = new UDPUtils.UDPSocket(port);
+    }
     @Override
     public void run() {
         while (true){
             try {
-                UDPUtils.send(udp_s, "Hello!");
-                sleep(1000);
-            } catch (IOException | InterruptedException e) {
+                String msg = UDPUtils.recv(udpSocket);
+                System.out.println(msg);
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
