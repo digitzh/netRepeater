@@ -1,0 +1,14 @@
+{
+  "senderConfig": {
+    "host": "localhost",
+    "port": 1111
+  },
+  "repeaterConfig": {
+    "listenPort": 1111,
+    "forwardHost": "localhost",
+    "forwardPort": 2222
+  },
+  "receiverConfig": {
+    "port": 2222
+  }
+}
